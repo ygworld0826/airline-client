@@ -162,9 +162,7 @@ describe('💡 Part 1: 항공권 목록 필터링', () => {
 //         },
 //       ];
 
-//       const scope = nock(
-//         'http://ec2-13-124-90-231.ap-northeast-2.compute.amazonaws.com:81'
-//       )
+//       const scope = nock('http://localhost:4999')
 //         .persist()
 //         .get('/flight?departure=ICN&destination=CJU')
 //         .reply(200, result);

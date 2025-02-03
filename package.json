@@ -6,9 +6,12 @@
     "build": "next build",
     "start": "next dev",
     "test": "jest",
-    "report": "jest --json --outputFile=report.jest.json"
+    "report": "jest --json --outputFile=report.jest.json",
+    "server:part-2": "node __tests__/app.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
     "next": "10.1.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
