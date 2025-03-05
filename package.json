@@ -5,7 +5,7 @@
   "scripts": {
     "build": "next build",
     "start": "next dev",
-    "test": "jest",
+    "test": "npx jest __tests__/index.test.js",
     "report": "jest --json --outputFile=report.jest.json",
     "server:part-2": "node __tests__/app.js"
   },
