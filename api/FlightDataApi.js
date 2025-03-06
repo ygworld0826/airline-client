@@ -1,35 +1,23 @@
-import flightList from '../resource/flightList'
-import fetch from 'node-fetch'
+import fetch from 'node-fetch';
 
-if (typeof window !== "undefined") {
-  localStorage.setItem('flight', JSON.stringify(flightList));
-}
+// 🔄 API 요청 함수 (REST API 호출로 대체)
+export async function getFlight(filterBy = {}) {
+  try {
+    // 🔄 쿼리 파라미터 생성
+    const query = new URLSearchParams(filterBy).toString();
 
-export function getFlight(filterBy = {}) {
-  // HINT: 가장 마지막 테스트를 통과하기 위해, fetch를 이용합니다. 아래 구현은 완전히 삭제되어도 상관없습니다.
-  // TODO: 아래 구현을 REST API 호출로 대체하세요.
+    // 🔄 REST API 호출 (GET 요청)
+    const response = await fetch(`http://localhost:4999/flight?${query}`);
 
+    if (!response.ok) {
+      throw new Error("API 요청 실패!");
+    }
 
-  let json = []
-  if (typeof window !== "undefined") {
-    json = localStorage.getItem("flight");
+    // 🔄 JSON 형식으로 변환
+    const data = await response.json();
+    return data;  // 🔄 받은 데이터 반환
+  } catch (error) {
+    console.error("API 요청 에러:", error);
+    return [];  // 🔄 에러 시 빈 배열 반환
   }
-  const flight = JSON.parse(json) || [];
-
-  return new Promise((resolve) => {
-    const filtered = flight.filter((flight) => {
-      let condition = true;
-      if (filterBy.departure) {
-        condition = condition && flight.departure === filterBy.departure
-      }
-      if (filterBy.destination) {
-        condition = condition && flight.destination === filterBy.destination
-      }
-      return condition;
-    })
-
-    setTimeout(() => {
-      resolve(filtered)
-    }, 500);
-  });
 }

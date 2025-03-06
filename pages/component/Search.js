@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function Search() {
+function Search({ onSearch }) {
   const [textDestination, setTextDestination] = useState('');
 
   const handleChange = (e) => {
@@ -14,16 +14,31 @@ function Search() {
   };
 
   const handleSearchClick = () => {
-    console.log('검색 버튼을 누르거나, 엔터를 치면 search 함수가 실행됩니다');
+    if (!['CJU', 'BKK', 'PUS'].includes(textDestination)) {
+      alert('CJU, BKK, PUS 중 하나를 입력하세요!');
+      return;
+    }
 
-    // TODO:
+    console.log('검색 버튼을 누르거나, 엔터를 치면 search 함수가 실행됩니다');
+    if (onSearch) {
+      onSearch({
+        departure: 'ICN',
+        destination: textDestination,
+      });
+    }
   };
 
   return (
     <fieldset>
       <legend>공항 코드를 입력하고, 검색하세요</legend>
       <span>출발지</span>
-      <input id="input-departure" type="text" disabled value="ICN"></input>
+      <input
+        id="input-departure"
+        type="text"
+        disabled
+        value="ICN"
+        placeholder="출발지"   // 🔄 `placeholder` 추가!
+      />
       <span>도착지</span>
       <input
         id="input-destination"
